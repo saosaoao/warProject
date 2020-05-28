@@ -53,3 +53,7 @@ function List:getKey(value)
         end
     end
 end
+
+function List:getLength()
+    return #self._keys
+end
