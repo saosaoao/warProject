@@ -33,8 +33,9 @@ Widget = {
 
 function Widget:new(target,wType)
     local o = {}
-    setmetatable(o, self)
-    self.__index = self
+    setmetatable(o,self)
+    self.__index = self.prototype
+    o.super = self
     o.target = target
     o.wType = wType
     return o
@@ -51,10 +52,18 @@ function Widget:on(eventName,listener,this)
 end
 
 function Widget:off(eventName)
+    local listenerList = self.events:getKey(eventName)
+    if (listenerList) then
+        for k,v listenerList do 
+            if (v.target == self) then
+                v:remove()
+            end
+        end
+    end
+end
+
+function Widget:moveTo(x,y)
+    
 
 end
 
-function Widget:moveTo()
-
-
-end
